@@ -227,20 +227,46 @@ Design Approach:
 - Regardless of board size, the "top-left" will always start with the type1 symbol
 */
 
-let size = 7;
+let size = 6;
 let newline = "\n";
-let type1 = " ";
-let type2 = "#";
+let symbol1 = "2";
+let symbol2 = "#";
+let pattern1 = "";
+let pattern2 = "";
 let completeBoard = "";
 
-for(; completeBoard.length < size; completeBoard = completeBoard + type1){ //began attempting a for loop
+
+function makePattern (symbol1, symbol2, size){
+  pattern = "";
+  while (pattern.length <= size) {
+    pattern = pattern + symbol1;
+    pattern = pattern + symbol2;    
+  }
+  //console.log('OG = ' +pattern);
+
+  if (pattern.length > size){
+    trimSize = pattern.length - size;
+    pattern = pattern.substring(0, pattern.length-trimSize);
+    console.log("Trimmed = " + pattern);
+  } else {
+      console.log("Nothing to Trim" );
+  }  
+  return pattern
 }
 
 
-while (completeBoard.length < size){ //initial attempt with a while loop
-  completeBoard = completeBoard + type1 + type2
+pattern1 = makePattern (symbol1, symbol2, size);
+pattern2 = makePattern (symbol2, symbol1, size);
+count = 0;
+
+while (count < size){
+  completeBoard = completeBoard + pattern1 + "\n";
+  completeBoard = completeBoard + pattern2 + "\n";  
+  count += 1;
 }
 console.log(completeBoard)
+
+
 
 
 
