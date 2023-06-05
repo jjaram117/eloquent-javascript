@@ -223,18 +223,9 @@ Also, edit your program so a chessboard of any size can be made (the above is si
 
 Design Approach:
 - Only 2 patterns exist, so first I develop both patterns
-- Next, I loop to concatenate the patterns and the \n characters as necessary in a single string
-- Regardless of board size, the "top-left" will always start with the type1 symbol
+- Next, I loop as necessary to concatenate the patterns and the \n characters as into a single string
+- Regardless of board size, the "top-left" will always start with symbol1
 */
-
-let size = 6;
-let newline = "\n";
-let symbol1 = "2";
-let symbol2 = "#";
-let pattern1 = "";
-let pattern2 = "";
-let completeBoard = "";
-
 
 function makePattern (symbol1, symbol2, size){
   pattern = "";
@@ -242,31 +233,73 @@ function makePattern (symbol1, symbol2, size){
     pattern = pattern + symbol1;
     pattern = pattern + symbol2;    
   }
-  //console.log('OG = ' +pattern);
 
   if (pattern.length > size){
-    trimSize = pattern.length - size;
-    pattern = pattern.substring(0, pattern.length-trimSize);
-    console.log("Trimmed = " + pattern);
+    pattern = pattern.substring(0, pattern.length-(pattern.length - size));
   } else {
       console.log("Nothing to Trim" );
-  }  
+  } 
   return pattern
 }
+
+function assembleBoard (pattern1, pattern2, size){
+  let completeBoard = "";
+  let count = 0;
+  if (size % 2 == 0){
+    for (; count < (size/2); completeBoard = completeBoard + pattern1 + "\n" + pattern2 + "\n"){
+      count += 1;
+    } 
+  } else {
+    for (; count < ((size+1)/2); completeBoard = completeBoard + pattern1 + "\n" + pattern2 + "\n"){
+      count += 1;
+    }
+    completeBoard = completeBoard.substring(0, completeBoard.length-(size+1));
+  }
+  return completeBoard;
+
+}
+
+let size = 8;
+let symbol1 = "_";
+let symbol2 = "#";
 
 
 pattern1 = makePattern (symbol1, symbol2, size);
 pattern2 = makePattern (symbol2, symbol1, size);
-count = 0;
 
-while (count < size){
-  completeBoard = completeBoard + pattern1 + "\n";
-  completeBoard = completeBoard + pattern2 + "\n";  
-  count += 1;
-}
-console.log(completeBoard)
+completeBoard = assembleBoard (pattern1, pattern2, size);
+
+console.log(completeBoard);
 
 
+
+
+/* 
+Notes:
+'function makePattern()'
+ - Takes both symbols and the 'size' as arguments and generates a pattern based on the 'size'. 
+ - If 'size' is an odd number the pattern concatenates one too many of 'symbol2', therefore, the approach is to trim the last bits of the 
+ pattern that are unecessary.  
+ - Executed twice with reverse order of 'symbol1' and 'symbol2' to generate the 2 patterns used to generate the board
+
+'function assembleBoard()'
+- Intakes the two patterns and alternates between to assemble the board
+- The number of times each pattern is utilized depends on whether 'size' is even or odd. 
+  - When 'size' = odd, 'pattern1' is utilized 1 more time than 'pattern2'
+  - When 'size' = even, both 'pattern1' and 'pattern2' are utilized the same amount
+- Similar to 'makePattern()', a loop is used to assemble the board and implements '\n' where appropriate, and if odd, trimming is used 
+to remove the unecessary 'pattern2' iteration that was concatenated 
+- Function could certainly be re-written to reduce the for-loop code that's used twice
+- An additinal '\n' also exists at the very end of the 'completedBoard' string, but it has no impact in this scenario 
+
+
+Further 'assembleBoard()' Notes: 
+Approach 1 - concatenate patterns and '\n', trim the undesired strings. Issue: Additional concatenations occur based on "size" variable at
+rate of 2*x-2. Requires LOTS of trimming (nearly twice the desired vertical size).
+
+Approach 2 - Calculate how many of each pattern are necessary based on 'size' variable. Utlilize for loops to assemble final string. This was 
+the final approach that was used. 
+*/
 
 
 
