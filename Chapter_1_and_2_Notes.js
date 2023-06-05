@@ -1,7 +1,7 @@
-//General Notes from 'Eloquent Javascript' - Chapter 1 and 2 Notes
+// Notes from 'Eloquent Javascript' - Chapter 1 and 2
 
 //----------------------------------Chapter 1: General Data Types----------------------------------//
-// 
+
 //'%' is the remainder function (aka the 'modulo')
 //e.g. 314 % 100 results in 14
 
