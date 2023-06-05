@@ -1,4 +1,4 @@
-//General Notes from 'Eloquent Javascript'
+//General Notes from 'Eloquent Javascript' - Chapter 1 and 2 Notes
 
 //----------------------------------Chapter 1: General Data Types----------------------------------//
 // 
