@@ -26,7 +26,7 @@ if(safeMode){
 //^^This is ONLY doable if a function is defined as a value, the "const square = function (number) { };" format. NOT when it's created using 
 //Declaration notation
 
-//Declaration Notation:
+//-------Declaration Notation:
 function square(x){
   return x * x;
 }
@@ -55,7 +55,7 @@ const horn = () => {
 //->
 
 
-//The Call Stack mechanism
+//-------The Call Stack mechanism
 //The place where computers store of the context of what 'level' they're currently at when executing a functions. This way they can keep
 //track of where they are and what other functions fall within the current Call Stack level. 
 //Every time a function is run, computers add that to the top of the Call Stack.
@@ -73,7 +73,7 @@ console.log(chicken() + " came first")
 //-> stack gets blown. 
 
 
-//Optional Arguments
+//-------Optional Arguments
 //The below code is functional because JS is a very open-minded and flexible PL (for better and worse)
 const square = function(x){
   return x * x;
@@ -124,10 +124,61 @@ console.log(twice(6));
 //Super weird and I still don't get the 'number => number * factor', but I'm fuzzily getting there. 
 
 
-//Resursion
-//
+//-------Resursion
+//A function calling itself. Just make sure it doesn't run enough to blow the stack.
+//A re-formatted example of the 'power' function
+function power(base, exponent){
+  if (exponent == 0){
+    return 1;
+  } else {
+    return base * power(base, exponent - 1); //Recursion, son!
+  }
+}
 
+console.log(power(2,3));
+//->8
+//Breakdown since this is my first time with recursion:
+//function keeps calling itself within itself, but it's almost like a reverse loop in that 'exponent - 1' reduces the value until it's'
+//eventually 0, at which point returns '1'. I envision it as resulting in: 2 (base) * 2 * 2 * 1, ->8
 
+//HOWEVER, calling a function exponent-1 times is slower than just calling a loop. 
 
+function findSolution(target){
+  function find(current, history){
+    if (current == target){
+      return history;
+    } else if (current > target) {
+      return null;
+    } else {
+      return find(current + 5, `(${history} + 5)`) || find(current * 3, `(${history} * 3)`);
+    }
+  }
+  return find(1,"1");
+}
+console.log(findSolution(24));
+//->(((1*3) + 5) * 3)
 
+//Woah. Here's a breakdown:
+/*
+- The inner 'find' is where the recurssion is actually happening. It takes the current number ('current') and a string recording how that 
+number was reached ('history'). If it finds a solution, it returns a string that shows how to get to the target. Otherwise, it returns null 
+(if no solution can be found from that starting number)
+- 3 possible actions are performed:
+1. If current = target, the current history is the actual way to reach the target, so this is returned as it's the solution.
+2. If current is greater than the target, just kill the function because we'll only be adding and multiplying, so there's point in 
+contiuing. 'null' is returned.
+3. If we're still below the target number, the function tries both paths that start from the current number by calling itself twice 
+(adding and muliplying). If the first call returns something that isn't 'null', it's returned. Otherwise the second call is returned 
+REGARDLESS of whether it produces a string or 'null'.
+*/
+
+//Classic Recursion example: Factorials
+//I tried it out before looking at the answer. Got it right, just needed to add the '|| startNum == 0)' condition to account for 0
+function factorial(startNum){
+  if (startNum == 1 || startNum == 0){
+    return startNum
+  } else {
+    return startNum * factorial(startNum - 1);
+  }
+}
 
