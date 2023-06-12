@@ -7,7 +7,7 @@ X Exercises for Chapter X
 /*
 Goal:
 
-Approach:
+Approach + Self-imposed Challenges:
 */
 //Code:
 
@@ -17,7 +17,7 @@ Approach:
 /*
 Goal: 
 
-Approach:
+Approach + Self-imposed Challenges:
 */
 //Code:
 
@@ -27,6 +27,6 @@ Approach:
 /*
 Goal: 
 
-Approach:
+Approach + Self-imposed Challenges:
 */
 //Code:
